@@ -125,26 +125,23 @@ class VP_Option
 			if(!isset($menu_page['icon_url'])) $menu_page['icon_url'] = '';
 			if(!isset($menu_page['position'])) $menu_page['position'] = null;
 
-			$hook_suffix = add_menu_page(
-				$this->get_page_title(),
-				$this->get_menu_label(),
-				$this->get_minimum_role(),
-				$this->get_page_slug(),
-				array($this, 'option_page_display'),
-				$menu_page['icon_url'],
-				$menu_page['position']
-			);
+            $hook_suffix = add_theme_page(
+                $this->get_page_title(),
+                $this->get_menu_label(),
+                $this->get_minimum_role(),
+                $this->get_page_slug(),
+                array($this, 'option_page_display')
+            );
 		}
 		else
 		{
-			$hook_suffix = add_submenu_page(
-				$this->get_menu_page(),
-				$this->get_page_title(),
-				$this->get_menu_label(),
-				$this->get_minimum_role(),
-				$this->get_page_slug(),
-				array($this, 'option_page_display')
-			);
+			$hook_suffix = add_theme_page(
+                $this->get_page_title(),
+                $this->get_menu_label(),
+                $this->get_minimum_role(),
+                $this->get_page_slug(),
+                array($this, 'option_page_display')
+            );
 		}
 		$this->set_hook_suffix($hook_suffix);
 
