@@ -201,10 +201,13 @@ class VP_WP_Loader
 						$this->js_unit_register($dep);
 					}
 				}
+				/*
+				 * Remove wp_deregister_script
 				if( $is_older )
 				{
 					wp_deregister_script($name);
 				}
+				*/
 
 				wp_register_script($name, $script['path'], $script['deps'], $script['ver'], true);
 
