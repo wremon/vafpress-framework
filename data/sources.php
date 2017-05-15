@@ -81,7 +81,10 @@ function vp_get_roles()
 
 function vp_get_gwf_family()
 {
-	$fonts = file_get_contents(dirname(__FILE__) . '/gwf.json');
+    global $wp_filesystem;
+    WP_Filesystem();
+
+    $fonts = $wp_filesystem->get_contents(dirname(__FILE__) . '/gwf.json');
 	$fonts = json_decode($fonts);
 
 	$fonts = array_keys(get_object_vars($fonts));
@@ -100,8 +103,11 @@ function vp_get_gwf_weight($face)
 {
 	if(empty($face))
 		return array();
+
+    global $wp_filesystem;
+    WP_Filesystem();
 	
-	$fonts   = file_get_contents(dirname(__FILE__) . '/gwf.json');
+	$fonts   = $wp_filesystem->get_contents(dirname(__FILE__) . '/gwf.json');
 	$fonts   = json_decode($fonts);
 	if( !property_exists($fonts, $face) )
 		return null;
@@ -121,8 +127,11 @@ function vp_get_gwf_style($face)
 {
 	if(empty($face))
 		return array();
+
+    global $wp_filesystem;
+    WP_Filesystem();
 	
-	$fonts   = file_get_contents(dirname(__FILE__) . '/gwf.json');
+	$fonts   = $wp_filesystem->get_contents(dirname(__FILE__) . '/gwf.json');
 	$fonts   = json_decode($fonts);
 	if( !property_exists($fonts, $face) )
 		return null;
@@ -142,8 +151,11 @@ function vp_get_gwf_subset($face)
 {
 	if(empty($face))
 		return array();
-	
-	$fonts   = file_get_contents(dirname(__FILE__) . '/gwf.json');
+
+    global $wp_filesystem;
+    WP_Filesystem();
+
+	$fonts   = $wp_filesystem->get_contents(dirname(__FILE__) . '/gwf.json');
 	$fonts   = json_decode($fonts);
 	if( !property_exists($fonts, $face) )
 		return null;
@@ -196,8 +208,11 @@ function vp_get_fontawesome_icons()
 	// scrape list of icons from fontawesome css
 	if( false === ( $icons  = get_transient( 'vp_fontawesome_icons' ) ) )
 	{
+        global $wp_filesystem;
+        WP_Filesystem();
+
 		$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s*{\s*content/';
-		$subject = file_get_contents(VP_DIR . '/public/css/vendor/font-awesome.min.css');
+		$subject = $wp_filesystem->get_contents(VP_DIR . '/public/css/vendor/font-awesome.min.css');
 
 		preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
 
